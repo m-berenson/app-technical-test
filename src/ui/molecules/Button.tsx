@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { PressableContainer } from "@/src/ui/atoms/PressableContainer";
-import { Text } from "@/src/ui/atoms/Text";
+import { PressableContainer } from "@/src/ui/atoms/PressableContainer/PressableContainer";
+import { Text } from "@/src/ui/atoms/Text/Text";
 import {
   getButtonStyles,
   getButtonTextColor,
@@ -39,9 +39,9 @@ export const Button: React.FC<ButtonProps> = ({
       style={buttonStyles}
       onPress={onPress}
       disabled={disabled}
-      testID={testID}
+      testID={`${testID}-pressable`}
     >
-      <Text variant="button" colorToken={textColor} testID={testID}>
+      <Text variant="button" colorToken={textColor} testID={`${testID}-text`}>
         {label}
       </Text>
     </PressableContainer>

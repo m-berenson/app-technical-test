@@ -1,0 +1,392 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PressableContainer /> renders correctly when disabled 1`] = `
+<View
+  collapsable={false}
+  jestAnimatedProps={
+    {
+      "value": {},
+    }
+  }
+  jestAnimatedStyle={
+    {
+      "value": {
+        "transform": [
+          {
+            "scale": 1,
+          },
+        ],
+      },
+    }
+  }
+  jestInlineStyle={{}}
+  nativeID="1"
+  style={
+    [
+      {
+        "transform": [
+          {
+            "scale": 1,
+          },
+        ],
+      },
+    ]
+  }
+>
+  <View
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {},
+        undefined,
+      ]
+    }
+    testID="pressable-disabled"
+  >
+    Disabled
+  </View>
+</View>
+`;
+
+exports[`<PressableContainer /> renders correctly with all props combined 1`] = `
+<View
+  collapsable={false}
+  jestAnimatedProps={
+    {
+      "value": {},
+    }
+  }
+  jestAnimatedStyle={
+    {
+      "value": {
+        "transform": [
+          {
+            "scale": 1,
+          },
+        ],
+      },
+    }
+  }
+  jestInlineStyle={{}}
+  nativeID="12"
+  style={
+    [
+      {
+        "transform": [
+          {
+            "scale": 1,
+          },
+        ],
+      },
+    ]
+  }
+>
+  <View
+    accessibilityLabel="Combined props"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {},
+        {
+          "padding": 10,
+        },
+      ]
+    }
+    testID="pressable-combined"
+  >
+    Combined
+  </View>
+</View>
+`;
+
+exports[`<PressableContainer /> renders correctly with children 1`] = `
+<View
+  collapsable={false}
+  jestAnimatedProps={
+    {
+      "value": {},
+    }
+  }
+  jestAnimatedStyle={
+    {
+      "value": {
+        "transform": [
+          {
+            "scale": 1,
+          },
+        ],
+      },
+    }
+  }
+  jestInlineStyle={{}}
+  nativeID="0"
+  style={
+    [
+      {
+        "transform": [
+          {
+            "scale": 1,
+          },
+        ],
+      },
+    ]
+  }
+>
+  <View
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {},
+        undefined,
+      ]
+    }
+    testID="pressable-basic"
+  >
+    Press me
+  </View>
+</View>
+`;
+
+exports[`<PressableContainer /> renders correctly with custom style 1`] = `
+<View
+  collapsable={false}
+  jestAnimatedProps={
+    {
+      "value": {},
+    }
+  }
+  jestAnimatedStyle={
+    {
+      "value": {
+        "transform": [
+          {
+            "scale": 1,
+          },
+        ],
+      },
+    }
+  }
+  jestInlineStyle={{}}
+  nativeID="2"
+  style={
+    [
+      {
+        "transform": [
+          {
+            "scale": 1,
+          },
+        ],
+      },
+    ]
+  }
+>
+  <View
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {},
+        {
+          "backgroundColor": "#FFE016",
+          "padding": 16,
+        },
+      ]
+    }
+    testID="pressable-styled"
+  >
+    Styled
+  </View>
+</View>
+`;
+
+exports[`<PressableContainer /> renders correctly with enableScale disabled 1`] = `
+<View
+  collapsable={false}
+  jestAnimatedProps={
+    {
+      "value": {},
+    }
+  }
+  jestAnimatedStyle={
+    {
+      "value": {
+        "transform": [
+          {
+            "scale": 1,
+          },
+        ],
+      },
+    }
+  }
+  jestInlineStyle={{}}
+  nativeID="3"
+  style={
+    [
+      {
+        "transform": [
+          {
+            "scale": 1,
+          },
+        ],
+      },
+    ]
+  }
+>
+  <View
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {},
+        undefined,
+      ]
+    }
+    testID="pressable-no-scale"
+  >
+    No Scale
+  </View>
+</View>
+`;

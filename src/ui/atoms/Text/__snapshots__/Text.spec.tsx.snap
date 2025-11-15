@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Text /> renders correctly with basic variant 1`] = `
+<Text
+  style={
+    {
+      "fontSize": 14,
+      "fontWeight": "400",
+      "lineHeight": 20,
+    }
+  }
+  testID="text-basic"
+>
+  Hello World
+</Text>
+`;
+
+exports[`<Text /> renders correctly with colorToken 1`] = `
+<Text
+  style={
+    {
+      "color": "#FFE016",
+      "fontSize": 14,
+      "fontWeight": "400",
+      "lineHeight": 20,
+    }
+  }
+  testID="text-colored"
+>
+  Colored Text
+</Text>
+`;
+
+exports[`<Text /> renders correctly with custom style 1`] = `
+<Text
+  style={
+    {
+      "fontSize": 24,
+      "fontWeight": "600",
+      "lineHeight": 32,
+      "textAlign": "center",
+    }
+  }
+  testID="text-styled"
+>
+  Styled Text
+</Text>
+`;
+
+exports[`<Text /> renders correctly with displayLarge variant 1`] = `
+<Text
+  style={
+    {
+      "fontSize": 32,
+      "fontWeight": "700",
+      "lineHeight": 40,
+    }
+  }
+  testID="text-display"
+>
+  Display Text
+</Text>
+`;
+
+exports[`<Text /> renders correctly with variant and colorToken combined 1`] = `
+<Text
+  style={
+    {
+      "color": "#EF4444",
+      "fontSize": 16,
+      "fontWeight": "600",
+      "lineHeight": 24,
+    }
+  }
+  testID="text-combined"
+>
+  Combined Styles
+</Text>
+`;
