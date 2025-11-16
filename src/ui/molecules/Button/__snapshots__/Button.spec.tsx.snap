@@ -65,18 +65,15 @@ exports[`<Button /> renders correctly with default variant 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      [
-        {},
-        {
-          "alignItems": "center",
-          "backgroundColor": "#FFE016",
-          "borderRadius": 12,
-          "justifyContent": "center",
-          "minHeight": 44,
-          "paddingHorizontal": 24,
-          "paddingVertical": 16,
-        },
-      ]
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FFE016",
+        "borderRadius": 12,
+        "justifyContent": "center",
+        "minHeight": 44,
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      }
     }
     testID="button-default-pressable"
   >

@@ -29,7 +29,7 @@ export const PressableContainer: React.FC<PressableContainerProps> = ({
   style,
   onPress,
   enableHaptics = true,
-  enableScale = true,
+  enableScale = !!onPress && !disabled,
   ...pressableProps
 }) => {
   const scale = useSharedValue(1);
@@ -53,7 +53,7 @@ export const PressableContainer: React.FC<PressableContainerProps> = ({
   };
 
   const handlePress = async () => {
-    if (!disabled && !!onPress) {
+    if (!!onPress && !disabled) {
       if (enableHaptics) {
         await triggerImpactLight();
       }
@@ -67,12 +67,7 @@ export const PressableContainer: React.FC<PressableContainerProps> = ({
         accessibilityRole={pressableProps.accessibilityRole || "button"}
         accessibilityState={pressableProps.accessibilityState || { disabled }}
         disabled={disabled}
-        style={({ pressed }) => [
-          {
-            ...(pressed && !disabled ? styles.pressed : {}),
-          },
-          style,
-        ]}
+        style={style}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         onPress={handlePress}
@@ -83,9 +78,3 @@ export const PressableContainer: React.FC<PressableContainerProps> = ({
     </Animated.View>
   );
 };
-
-const styles = StyleSheet.create({
-  pressed: {
-    opacity: 0.8,
-  },
-});

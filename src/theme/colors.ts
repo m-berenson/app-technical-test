@@ -5,6 +5,10 @@ export const colors = {
   secondary: "#6B7280",
   secondaryDark: "#374151",
 
+  // gray tertiary
+  tertiary: "#F3F4F6",
+  tertiaryDark: "#E5E7EB",
+
   success: "#10B981",
   warning: "#F59E0B",
   error: "#EF4444",

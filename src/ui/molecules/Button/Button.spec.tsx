@@ -24,8 +24,8 @@ describe("<Button />", () => {
 
     expect(button).toHaveStyle({ backgroundColor: colors.primary });
     expect(button).toHaveStyle({ borderRadius: 12 });
-    expect(button).toHaveStyle({ paddingHorizontal: 24 });
-    expect(button).toHaveStyle({ paddingVertical: 16 });
+    expect(button).toHaveStyle({ paddingHorizontal: 16 });
+    expect(button).toHaveStyle({ paddingVertical: 12 });
     expect(button).toHaveStyle({ minHeight: 44 });
   });
 

@@ -64,12 +64,6 @@ exports[`<PressableContainer /> renders correctly when disabled 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    style={
-      [
-        {},
-        undefined,
-      ]
-    }
     testID="pressable-disabled"
   >
     Disabled
@@ -143,12 +137,9 @@ exports[`<PressableContainer /> renders correctly with all props combined 1`] = 
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      [
-        {},
-        {
-          "padding": 10,
-        },
-      ]
+      {
+        "padding": 10,
+      }
     }
     testID="pressable-combined"
   >
@@ -221,12 +212,6 @@ exports[`<PressableContainer /> renders correctly with children 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    style={
-      [
-        {},
-        undefined,
-      ]
-    }
     testID="pressable-basic"
   >
     Press me
@@ -299,13 +284,10 @@ exports[`<PressableContainer /> renders correctly with custom style 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      [
-        {},
-        {
-          "backgroundColor": "#FFE016",
-          "padding": 16,
-        },
-      ]
+      {
+        "backgroundColor": "#FFE016",
+        "padding": 16,
+      }
     }
     testID="pressable-styled"
   >
@@ -378,12 +360,6 @@ exports[`<PressableContainer /> renders correctly with enableScale disabled 1`] 
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    style={
-      [
-        {},
-        undefined,
-      ]
-    }
     testID="pressable-no-scale"
   >
     No Scale
