@@ -6,7 +6,6 @@ import {
   ComponentFieldEvent,
   COMPONENT_TYPE,
   ComponentEndEvent,
-  ChatStreamSSEEvent,
   VALID_COMPONENT_FIELDS,
 } from "@/src/modules/chat/types";
 
@@ -78,27 +77,11 @@ const validateComponentEndEvent = (
   return event;
 };
 
-export const validateChatStreamSSEEvent = (
-  event: ChatStreamSSEEvent
-): ChatStreamSSEEvent => {
-  try {
-    switch (event.event) {
-      case "message_start":
-        return validateMessageStartEvent(event);
-      case "text_chunk":
-        return validateTextChunkEvent(event);
-      case "message_end":
-        return validateMessageEndEvent(event);
-      case "component_start":
-        return validateComponentStartEvent(event);
-      case "component_field":
-        return validateComponentFieldEvent(event);
-      case "component_end":
-        return validateComponentEndEvent(event);
-      default:
-        throw new Error("Invalid event: " + event);
-    }
-  } catch (error) {
-    throw new Error("Error parsing chat stream SSE event: " + error);
-  }
+export const eventValidators = {
+  messageStart: validateMessageStartEvent,
+  textChunk: validateTextChunkEvent,
+  messageEnd: validateMessageEndEvent,
+  componentStart: validateComponentStartEvent,
+  componentField: validateComponentFieldEvent,
+  componentEnd: validateComponentEndEvent,
 };

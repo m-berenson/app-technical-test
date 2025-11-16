@@ -84,6 +84,7 @@ export interface ChatMessage extends BaseMessageProps {
   role: "user" | "agent";
   content: string;
   component?: ChatComponent;
+  lastChunkIndex: number;
 }
 
 export const VALID_COMPONENT_FIELDS: (
@@ -99,3 +100,7 @@ export const VALID_COMPONENT_FIELDS: (
   "company",
   "profilePicture",
 ];
+
+export const isValidComponentType = (type: string): type is ComponentType => {
+  return COMPONENT_TYPE.includes(type as ComponentType);
+};
