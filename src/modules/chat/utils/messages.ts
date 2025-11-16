@@ -1,6 +1,5 @@
 import {
   ChatMessage,
-  ChatStreamSSEEvent,
   ComponentEndEvent,
   ComponentFieldEvent,
   ComponentStartEvent,
@@ -11,7 +10,7 @@ import {
 } from "../types";
 import { eventValidators } from "./validators";
 
-const buildMessageStartMessage = ({
+export const buildMessageStartMessage = ({
   event,
 }: {
   event: MessageStartEvent;
@@ -31,7 +30,7 @@ const buildMessageStartMessage = ({
   }
 };
 
-const buildTextChunkMessage = ({
+export const buildTextChunkMessage = ({
   event,
   message,
 }: {
@@ -59,7 +58,7 @@ const buildTextChunkMessage = ({
   }
 };
 
-const buildMessageEndMessage = ({
+export const buildMessageEndMessage = ({
   event,
   message,
 }: {
@@ -82,7 +81,7 @@ const buildMessageEndMessage = ({
   }
 };
 
-const buildComponentStartMessage = ({
+export const buildComponentStartMessage = ({
   event,
   message,
 }: {
@@ -134,7 +133,7 @@ const buildComponentStartMessage = ({
   }
 };
 
-const buildComponentFieldMessage = ({
+export const buildComponentFieldMessage = ({
   event,
   message,
 }: {
@@ -164,7 +163,7 @@ const buildComponentFieldMessage = ({
   }
 };
 
-const buildComponentEndMessage = ({
+export const buildComponentEndMessage = ({
   event,
   message,
 }: {
@@ -188,34 +187,5 @@ const buildComponentEndMessage = ({
     };
   } catch (error) {
     throw new Error("Error building component end message: " + error);
-  }
-};
-
-export const buildMessage = ({
-  event,
-  message,
-}: {
-  event: ChatStreamSSEEvent;
-  message: ChatMessage;
-}): ChatMessage => {
-  try {
-    switch (event.event) {
-      case "message_start":
-        return buildMessageStartMessage({ event });
-      case "text_chunk":
-        return buildTextChunkMessage({ event, message });
-      case "message_end":
-        return buildMessageEndMessage({ event, message });
-      case "component_start":
-        return buildComponentStartMessage({ event, message });
-      case "component_field":
-        return buildComponentFieldMessage({ event, message });
-      case "component_end":
-        return buildComponentEndMessage({ event, message });
-      default:
-        throw new Error("Invalid event");
-    }
-  } catch (error) {
-    throw new Error("Error building message: " + error);
   }
 };

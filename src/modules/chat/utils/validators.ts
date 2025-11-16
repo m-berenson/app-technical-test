@@ -20,7 +20,7 @@ const validateMessageStartEvent = (
 };
 
 const validateTextChunkEvent = (event: TextChunkEvent): TextChunkEvent => {
-  if (!event.messageId || !event.chunk || !event.index) {
+  if (!event.messageId || !event.chunk || typeof event.index !== "number") {
     throw new Error("Invalid text chunk event");
   }
 
