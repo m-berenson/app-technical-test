@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react-native";
-import { Button } from "./Button";
+import { Button } from "@/src/ui/molecules/Button/Button";
 import { buttonVariants } from "@/src/theme";
 import { colors } from "@/src/theme/colors";
 

@@ -24,4 +24,7 @@ export const colors = {
 
   transparent: "transparent",
   overlay: "rgba(0, 0, 0, 0.5)",
+
+  white: "#FFFFFF",
+  black: "#000000",
 } as const;
