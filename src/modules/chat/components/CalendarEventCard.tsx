@@ -8,7 +8,7 @@ interface CalendarEventCardProps extends TestingProps {
   title: string;
   date: string;
   time: string;
-  status: "PROPOSED" | "ACCEPTED" | "DECLINED";
+  status: string;
   onPress?: () => void;
 }
 
