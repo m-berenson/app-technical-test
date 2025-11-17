@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   messagesList: {
-    flex: 1,
     padding: spacing.md,
     gap: spacing.md,
   },

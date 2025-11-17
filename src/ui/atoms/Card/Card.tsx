@@ -1,22 +1,24 @@
 import { TestingProps } from "@/src/theme/types";
 import { PressableContainer } from "../PressableContainer/PressableContainer";
 import { colors, layout, spacing } from "@/src/theme";
-import { StyleSheet } from "react-native";
+import { StyleProp, StyleSheet, ViewStyle } from "react-native";
 
 interface CardProps extends TestingProps {
   onPress?: () => void;
   disabled?: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 const Card: React.FC<React.PropsWithChildren<CardProps>> = ({
   children,
   onPress,
   disabled,
+  style,
   testID,
 }) => {
   return (
     <PressableContainer
-      style={styles.container}
+      style={StyleSheet.flatten([styles.container, style])}
       onPress={onPress}
       disabled={disabled}
       testID={`${testID}-card-pressable`}

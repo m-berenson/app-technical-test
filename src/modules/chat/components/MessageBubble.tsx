@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { spacing, layout, colors } from "@/src/theme";
 import { TestingProps } from "@/src/theme/types";
 import { Text } from "@/src/ui/atoms/Text/Text";
@@ -31,6 +31,8 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, testID }) => {
     isCompleted: message.isCompleted,
   });
 
+  const minWidth = useWindowDimensions().width * 0.65;
+
   return (
     <View
       style={[styles.container, MESSAGE_BUBBLE_VARIANT_STYLES[message.role]]}
@@ -42,19 +44,18 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, testID }) => {
         </Text>
       )}
       {message.component && (
-        <Component component={message.component} testID={testID} />
+        <View style={[styles.componentContainer, { minWidth }]}>
+          <Component component={message.component} testID={testID} />
+        </View>
       )}
     </View>
   );
 };
 
-const Component = ({
-  component,
-  testID,
-}: {
+const Component: React.FC<{
   component: ChatComponent;
   testID: string;
-}) => {
+}> = ({ component, testID }) => {
   if (component.type === "contact_badge") {
     return (
       <ContactCard
@@ -87,11 +88,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     maxWidth: "80%",
   },
-  userContainer: {
-    alignSelf: "flex-end",
-  },
-  agentContainer: {
-    alignSelf: "flex-start",
+  componentContainer: {
+    marginTop: spacing.md,
   },
 });
 

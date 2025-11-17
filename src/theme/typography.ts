@@ -86,6 +86,13 @@ export const typography = {
     fontWeight: "500",
     lineHeight: 14,
   },
+  overline: {
+    fontSize: 11,
+    fontWeight: "600",
+    lineHeight: 14,
+    letterSpacing: 0.8,
+    textTransform: "uppercase",
+  },
   // ================================
   // Button styles
   // ================================

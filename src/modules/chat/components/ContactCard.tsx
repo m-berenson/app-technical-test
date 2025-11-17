@@ -1,9 +1,16 @@
-import { spacing } from "@/src/theme";
+import { spacing, layout, colors } from "@/src/theme";
 import { TestingProps } from "@/src/theme/types";
 import { Avatar } from "@/src/ui/atoms/Avatar/Avatar";
 import Card from "@/src/ui/atoms/Card/Card";
 import { Text } from "@/src/ui/atoms/Text/Text";
+import { useMemo } from "react";
 import { StyleSheet, View } from "react-native";
+import Animated, {
+  FadeInLeft,
+  FadeInRight,
+  FadeInUp,
+  LinearTransition,
+} from "react-native-reanimated";
 
 interface ContactCardProps extends TestingProps {
   name: string;
@@ -21,51 +28,122 @@ export const ContactCard: React.FC<ContactCardProps> = ({
   onPress,
   testID,
 }) => {
+  const detailFields = useMemo(
+    () =>
+      [
+        {
+          key: "email",
+          label: "Email",
+          value: email,
+          testSuffix: "email",
+        },
+      ].filter((field) => Boolean(field.value)),
+    [email]
+  );
+
   return (
     <Card onPress={onPress} testID={testID}>
-      <View style={styles.container}>
-        <Avatar
-          name={name}
-          imageUri={profilePicture}
-          size="lg"
-          testID={`${testID}-avatar`}
-        />
-        <View style={styles.infoContainer}>
-          <Text
-            variant="titleMedium"
-            colorToken="text"
-            testID={`${testID}-name`}
-          >
-            {name}
-          </Text>
-          <Text
-            variant="bodyMedium"
-            colorToken="text"
-            style={{ fontStyle: "italic" }}
-            testID={`${testID}-company`}
-          >
-            {company}
-          </Text>
-          <Text
-            variant="bodyMedium"
-            colorToken="text"
-            testID={`${testID}-email`}
-          >
-            {email}
-          </Text>
+      <Animated.View style={styles.container} layout={LinearTransition}>
+        <View style={styles.header}>
+          <Animated.View entering={FadeInRight} style={styles.avatarContainer}>
+            {(!!profilePicture || !!name) && (
+              <Avatar
+                name={name}
+                imageUri={profilePicture}
+                size="lg"
+                testID={`${testID}-avatar`}
+              />
+            )}
+          </Animated.View>
+          <View style={styles.identityContainer}>
+            {!!name && (
+              <Animated.View entering={FadeInLeft}>
+                <Text
+                  variant="titleLarge"
+                  colorToken="text"
+                  testID={`${testID}-name`}
+                >
+                  {name}
+                </Text>
+              </Animated.View>
+            )}
+            {!!company && (
+              <Animated.View entering={FadeInUp} style={styles.companyPill}>
+                <Text
+                  variant="overline"
+                  colorToken="textSecondary"
+                  testID={`${testID}-company`}
+                >
+                  {company}
+                </Text>
+              </Animated.View>
+            )}
+          </View>
         </View>
-      </View>
+
+        {detailFields.length > 0 && <View style={styles.divider} />}
+
+        <Animated.View style={styles.detailsContainer}>
+          {detailFields.map((field) => (
+            <Animated.View
+              key={field.key}
+              entering={FadeInUp}
+              style={styles.detailRow}
+            >
+              <Text
+                variant="overline"
+                colorToken="textLight"
+                testID={`${testID}-${field.key}-label`}
+              >
+                {field.label}
+              </Text>
+              <Text
+                variant="bodyMedium"
+                colorToken="text"
+                testID={`${testID}-${field.testSuffix}`}
+              >
+                {field.value}
+              </Text>
+            </Animated.View>
+          ))}
+        </Animated.View>
+      </Animated.View>
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    gap: spacing.md,
+  },
+  header: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.md,
   },
-  infoContainer: {
+  identityContainer: {
     gap: spacing.xs,
+    flex: 1,
+  },
+  divider: {
+    height: 1.5,
+    backgroundColor: colors.primary,
+  },
+  detailsContainer: {
+    gap: spacing.sm,
+  },
+  detailRow: {
+    gap: spacing.xs,
+  },
+  companyPill: {
+    alignSelf: "flex-start",
+    backgroundColor: colors.backgroundSecondary,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs / 2,
+    borderRadius: layout.radius.full,
+  },
+  avatarContainer: {
+    minWidth: layout.avatar.lg,
+    minHeight: layout.avatar.lg,
   },
 });

@@ -16,7 +16,7 @@ export const getButtonStyles = (variant: ButtonVariant, disabled: boolean) => {
       };
     case buttonVariants.secondary:
       return {
-        backgroundColor: colors.transparent,
+        backgroundColor: colors.secondary,
         borderWidth: 1,
         borderColor: disabled ? colors.border : colors.primary,
       };

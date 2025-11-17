@@ -3,7 +3,6 @@ import {
   GestureResponderEvent,
   Pressable,
   PressableProps,
-  StyleSheet,
   ViewStyle,
 } from "react-native";
 import Animated, {
