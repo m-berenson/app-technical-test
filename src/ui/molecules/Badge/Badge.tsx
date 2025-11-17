@@ -12,15 +12,24 @@ export interface BadgeProps extends TestingProps {
 
 export const Badge: React.FC<BadgeProps> = ({
   label,
-  variant = badgeVariants.neutral,
+  variant = badgeVariants.subtle,
   testID,
 }) => {
+  const variantStyles = BADGE_VARIANT_STYLES[variant];
+
   return (
     <View
-      style={[styles.container, BADGE_VARIANT_STYLES[variant]]}
-      testID={`${testID}-container`}
+      style={[
+        styles.container,
+        { backgroundColor: variantStyles.backgroundColor },
+      ]}
+      testID={testID}
     >
-      <Text variant="caption" colorToken="background" testID={`${testID}-text`}>
+      <Text
+        variant="overline"
+        colorToken={variantStyles.textColorToken}
+        testID={`${testID}-label`}
+      >
         {label}
       </Text>
     </View>
@@ -30,7 +39,7 @@ export const Badge: React.FC<BadgeProps> = ({
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xs,
+    paddingVertical: spacing.xs / 2,
     borderRadius: layout.radius.full,
   },
 });

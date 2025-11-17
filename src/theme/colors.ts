@@ -17,6 +17,10 @@ export const colors = {
   background: "#FFFFFF",
   backgroundSecondary: "#F9FAFB",
   backgroundDark: "#F3F4F6",
+  badgeSubtleBackground: "#F9FAFB",
+  badgePositiveBackground: "rgba(16, 185, 129, 0.15)",
+  badgeInformativeBackground: "rgba(59, 130, 246, 0.15)",
+  badgeNegativeBackground: "rgba(239, 68, 68, 0.12)",
 
   text: "#111827",
   textSecondary: "#6B7280",

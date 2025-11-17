@@ -1,8 +1,9 @@
-import { spacing, layout, colors } from "@/src/theme";
+import { spacing, layout, colors, badgeVariants } from "@/src/theme";
 import { TestingProps } from "@/src/theme/types";
 import { Avatar } from "@/src/ui/atoms/Avatar/Avatar";
 import Card from "@/src/ui/atoms/Card/Card";
 import { Text } from "@/src/ui/atoms/Text/Text";
+import { Badge } from "@/src/ui/molecules/Badge/Badge";
 import { useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {
@@ -68,14 +69,15 @@ export const ContactCard: React.FC<ContactCardProps> = ({
               </Animated.View>
             )}
             {!!company && (
-              <Animated.View entering={FadeInUp} style={styles.companyPill}>
-                <Text
-                  variant="overline"
-                  colorToken="textSecondary"
-                  testID={`${testID}-company`}
-                >
-                  {company}
-                </Text>
+              <Animated.View
+                entering={FadeInUp}
+                style={styles.companyBadgeWrapper}
+              >
+                <Badge
+                  label={company}
+                  variant={badgeVariants.subtle}
+                  testID={`${testID}-company-badge`}
+                />
               </Animated.View>
             )}
           </View>
@@ -135,12 +137,8 @@ const styles = StyleSheet.create({
   detailRow: {
     gap: spacing.xs,
   },
-  companyPill: {
+  companyBadgeWrapper: {
     alignSelf: "flex-start",
-    backgroundColor: colors.backgroundSecondary,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xs / 2,
-    borderRadius: layout.radius.full,
   },
   avatarContainer: {
     minWidth: layout.avatar.lg,

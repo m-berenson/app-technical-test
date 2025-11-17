@@ -1,7 +1,8 @@
-import { spacing, layout, colors } from "@/src/theme";
-import { TestingProps } from "@/src/theme/types";
+import { spacing, colors, badgeVariants } from "@/src/theme";
+import { BadgeVariant, TestingProps } from "@/src/theme/types";
 import Card from "@/src/ui/atoms/Card/Card";
 import { Text } from "@/src/ui/atoms/Text/Text";
+import { Badge } from "@/src/ui/molecules/Badge/Badge";
 import { useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {
@@ -18,23 +19,10 @@ interface CalendarEventCardProps extends TestingProps {
   onPress?: () => void;
 }
 
-const CALENDAR_EVENT_CARD_STATUS = {
-  confirmed: {
-    background: "rgba(16, 185, 129, 0.15)",
-    color: colors.success,
-  },
-  proposed: {
-    background: "rgba(59, 130, 246, 0.15)",
-    color: colors.info,
-  },
-  cancelled: {
-    background: "rgba(239, 68, 68, 0.12)",
-    color: colors.error,
-  },
-  default: {
-    background: colors.backgroundSecondary,
-    color: colors.textSecondary,
-  },
+const STATUS_VARIANT_MAP: Record<string, BadgeVariant> = {
+  confirmed: badgeVariants.positive,
+  proposed: badgeVariants.informative,
+  cancelled: badgeVariants.negative,
 };
 
 const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
@@ -47,10 +35,9 @@ const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
 }) => {
   const normalizedStatus = status?.toLowerCase();
   const statusLabel = status?.toUpperCase();
-  const statusKey = normalizedStatus as keyof typeof CALENDAR_EVENT_CARD_STATUS;
-  const statusAppearance =
-    (statusKey && CALENDAR_EVENT_CARD_STATUS[statusKey]) ??
-    CALENDAR_EVENT_CARD_STATUS.default;
+  const statusVariant = normalizedStatus
+    ? STATUS_VARIANT_MAP[normalizedStatus] ?? badgeVariants.subtle
+    : badgeVariants.subtle;
 
   const detailFields = useMemo(
     () =>
@@ -77,20 +64,12 @@ const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
             </Animated.View>
           )}
           {!!status && (
-            <Animated.View
-              entering={FadeInRight}
-              style={[
-                styles.statusPill,
-                { backgroundColor: statusAppearance.background },
-              ]}
-            >
-              <Text
-                variant="overline"
-                style={{ color: statusAppearance.color }}
-                testID={`${testID}-status`}
-              >
-                {statusLabel}
-              </Text>
+            <Animated.View entering={FadeInRight}>
+              <Badge
+                label={statusLabel}
+                variant={statusVariant}
+                testID={`${testID}-status-badge`}
+              />
             </Animated.View>
           )}
         </View>
@@ -138,11 +117,6 @@ const styles = StyleSheet.create({
   },
   headerText: {
     flex: 1,
-  },
-  statusPill: {
-    borderRadius: layout.radius.full,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs / 2,
   },
   divider: {
     height: 1.5,

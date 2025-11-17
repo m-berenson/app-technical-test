@@ -1,33 +1,34 @@
 import { colors } from "./colors";
 
 export const badgeVariants = {
-  success: "success",
-  warning: "warning",
-  error: "error",
-  info: "info",
-  neutral: "neutral",
+  subtle: "subtle",
+  positive: "positive",
+  informative: "informative",
+  negative: "negative",
 } as const;
 
 export type BadgeVariant = (typeof badgeVariants)[keyof typeof badgeVariants];
 
 export type BadgeVariantStyles = {
   backgroundColor: string;
+  textColorToken: keyof typeof colors;
 };
 
 export const BADGE_VARIANT_STYLES = {
-  success: {
-    backgroundColor: colors.success,
+  subtle: {
+    backgroundColor: colors.badgeSubtleBackground,
+    textColorToken: "textSecondary",
   },
-  warning: {
-    backgroundColor: colors.warning,
+  positive: {
+    backgroundColor: colors.badgePositiveBackground,
+    textColorToken: "success",
   },
-  error: {
-    backgroundColor: colors.error,
+  informative: {
+    backgroundColor: colors.badgeInformativeBackground,
+    textColorToken: "info",
   },
-  info: {
-    backgroundColor: colors.info,
-  },
-  neutral: {
-    backgroundColor: colors.secondary,
+  negative: {
+    backgroundColor: colors.badgeNegativeBackground,
+    textColorToken: "error",
   },
 } satisfies Record<BadgeVariant, BadgeVariantStyles>;
