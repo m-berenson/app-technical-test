@@ -9,21 +9,23 @@ import {
   spacing,
 } from "@/src/theme";
 import { ButtonVariant, TestingProps } from "@/src/theme/types";
-import { StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 
 export interface ButtonProps extends TestingProps {
   label: string;
   variant?: ButtonVariant;
   onPress: () => void;
   disabled?: boolean;
+  loading?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   label,
   variant = buttonVariants.primary,
   onPress,
-  disabled = false,
   testID,
+  loading = false,
+  disabled = false,
 }) => {
   const buttonStyles = useMemo(
     () => ({ ...styles.button, ...getButtonStyles(variant, disabled) }),
@@ -38,12 +40,16 @@ export const Button: React.FC<ButtonProps> = ({
     <PressableContainer
       style={buttonStyles}
       onPress={onPress}
-      disabled={disabled}
+      disabled={disabled || loading}
       testID={`${testID}-pressable`}
     >
-      <Text variant="button" colorToken={textColor} testID={`${testID}-text`}>
-        {label}
-      </Text>
+      {loading ? (
+        <ActivityIndicator size="small" color={textColor} />
+      ) : (
+        <Text variant="button" colorToken={textColor} testID={`${testID}-text`}>
+          {label}
+        </Text>
+      )}
     </PressableContainer>
   );
 };

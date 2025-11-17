@@ -1,14 +1,31 @@
-import React, { createContext, useCallback, useReducer } from "react";
+import React, { createContext, useCallback, useMemo, useReducer } from "react";
 import { chatReducer, defaultState } from "./chatReducer";
-import { ChatMessage, ChatStreamSSEEvent } from "../types";
-import { mockStreamEvents } from "../data/mockStreamEvents";
+import {
+  ChatMessage,
+  MessageStartEvent,
+  TextChunkEvent,
+  MessageEndEvent,
+  ComponentStartEvent,
+  ComponentFieldEvent,
+  ComponentEndEvent,
+} from "../types";
+import { useSSEStream } from "../../../services/sse/useSSEStream";
 
-export const ChatContext = createContext<{
+const STREAM_URL =
+  "https://api-dev.withallo.com/v1/demo/interview/conversation";
+
+type ChatContextType = {
   messages: ChatMessage[];
   handleStartStream: () => void;
-}>({
+  handleStopStream: () => void;
+  status: "idle" | "loading" | "streaming";
+};
+
+export const ChatContext = createContext<ChatContextType>({
   messages: [],
   handleStartStream: () => {},
+  handleStopStream: () => {},
+  status: "idle",
 });
 
 export const ChatProvider: React.FC<React.PropsWithChildren> = ({
@@ -17,56 +34,103 @@ export const ChatProvider: React.FC<React.PropsWithChildren> = ({
   const [state, dispatch] = useReducer(chatReducer, defaultState);
 
   const processEvent = useCallback(
-    (event: ChatStreamSSEEvent) => {
-      switch (event.event) {
-        case "message_start":
-          return dispatch({ type: "MESSAGE_START", payload: event });
-        case "text_chunk":
-          return dispatch({ type: "TEXT_CHUNK", payload: event });
-        case "message_end":
-          return dispatch({ type: "MESSAGE_END", payload: event });
-        case "component_start":
-          return dispatch({ type: "COMPONENT_START", payload: event });
-        case "component_field":
-          return dispatch({ type: "COMPONENT_FIELD", payload: event });
-        case "component_end":
-          return dispatch({ type: "COMPONENT_END", payload: event });
-        default:
-          return;
+    (event: any) => {
+      console.log("processEvent", event);
+      try {
+        const data = JSON.parse(event.data);
+        switch (event.type) {
+          case "message_start":
+            return dispatch({
+              type: "MESSAGE_START",
+              payload: data as MessageStartEvent,
+            });
+          case "text_chunk":
+            return dispatch({
+              type: "TEXT_CHUNK",
+              payload: data as TextChunkEvent,
+            });
+          case "message_end":
+            return dispatch({
+              type: "MESSAGE_END",
+              payload: data as MessageEndEvent,
+            });
+          case "component_start":
+            return dispatch({
+              type: "COMPONENT_START",
+              payload: data as ComponentStartEvent,
+            });
+          case "component_field":
+            return dispatch({
+              type: "COMPONENT_FIELD",
+              payload: data as ComponentFieldEvent,
+            });
+          case "component_end":
+            return dispatch({
+              type: "COMPONENT_END",
+              payload: data as ComponentEndEvent,
+            });
+          default:
+            console.error("Unknown event type", event.type, data);
+            return;
+        }
+      } catch (error) {
+        console.error("Failed to parse SSE event data:", event.data, error);
       }
     },
     [dispatch]
   );
 
+  // SSE event handlers
+  const eventHandlers = useMemo(
+    () => ({
+      onOpen: () => {
+        console.log("Chat SSE connection opened");
+        dispatch({ type: "SET_STATUS", payload: "streaming" });
+      },
+      onError: (event: any) => {
+        console.error("Chat SSE connection error", event);
+        dispatch({ type: "SET_STATUS", payload: "idle" });
+      },
+      onClose: () => {
+        console.log("Chat SSE connection closed");
+        dispatch({ type: "SET_STATUS", payload: "idle" });
+      },
+      message_start: processEvent,
+      text_chunk: processEvent,
+      message_end: processEvent,
+      component_start: processEvent,
+      component_field: processEvent,
+      component_end: processEvent,
+    }),
+    [processEvent]
+  );
+
+  const { start, stop } = useSSEStream({
+    url: STREAM_URL,
+    eventHandlers,
+  });
+
   const handleStartStream = useCallback(() => {
-    if (state.streamStatus === "started") return;
+    console.log("Starting SSE stream");
+    start();
+    dispatch({ type: "SET_STATUS", payload: "loading" });
+  }, [start]);
 
-    dispatch({ type: "UPDATE_STREAM_STATUS", payload: { status: "started" } });
+  const handleStopStream = useCallback(() => {
+    console.log("Stopping SSE stream");
 
-    let eventIndex = 0;
-
-    const processNextEvent = () => {
-      if (eventIndex >= mockStreamEvents.length) {
-        dispatch({
-          type: "UPDATE_STREAM_STATUS",
-          payload: { status: "completed" },
-        });
-        return;
-      }
-
-      const event = mockStreamEvents[eventIndex];
-      processEvent(event);
-
-      eventIndex++;
-      setTimeout(processNextEvent, 200);
-    };
-
-    processNextEvent();
-  }, [state.streamStatus, processEvent]);
+    stop();
+    dispatch({ type: "RESET_CHAT" });
+  }, [stop, dispatch]);
 
   return (
     <ChatContext.Provider
-      value={{ messages: state.messages, handleStartStream }}
+      value={{
+        messages: state.messages,
+        handleStartStream,
+        handleStopStream,
+        status: state.status,
+      }}
     >
       {children}
     </ChatContext.Provider>

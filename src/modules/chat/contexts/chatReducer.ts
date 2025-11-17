@@ -19,7 +19,7 @@ import {
 interface ChatState {
   messages: ChatMessage[];
   error?: string;
-  streamStatus: "started" | "streaming" | "completed";
+  status: "idle" | "loading" | "streaming";
 }
 
 interface MessageStartAction {
@@ -52,11 +52,13 @@ interface ComponentEndAction {
   payload: ComponentEndEvent;
 }
 
-interface UpdateStreamStatusAction {
-  type: "UPDATE_STREAM_STATUS";
-  payload: {
-    status: "started" | "streaming" | "completed";
-  };
+interface ResetChatAction {
+  type: "RESET_CHAT";
+}
+
+interface SetStatusAction {
+  type: "SET_STATUS";
+  payload: "idle" | "loading" | "streaming";
 }
 
 export type ChatAction =
@@ -66,7 +68,8 @@ export type ChatAction =
   | ComponentStartAction
   | ComponentFieldAction
   | ComponentEndAction
-  | UpdateStreamStatusAction;
+  | ResetChatAction
+  | SetStatusAction;
 
 const chatReducer = (state: ChatState, action: ChatAction) => {
   switch (action.type) {
@@ -166,11 +169,18 @@ const chatReducer = (state: ChatState, action: ChatAction) => {
           error: "Error building component end message",
         };
       }
-    case "UPDATE_STREAM_STATUS":
+
+    case "RESET_CHAT":
+      return {
+        ...defaultState,
+      };
+
+    case "SET_STATUS":
       return {
         ...state,
-        streamStatus: action.payload.status,
+        status: action.payload,
       };
+
     default:
       return { ...state, error: "Invalid action" };
   }
@@ -179,7 +189,7 @@ const chatReducer = (state: ChatState, action: ChatAction) => {
 const defaultState: ChatState = {
   messages: [],
   error: undefined,
-  streamStatus: "completed",
+  status: "idle",
 };
 
 export { chatReducer, defaultState };
