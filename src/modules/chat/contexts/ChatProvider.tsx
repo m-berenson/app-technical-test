@@ -108,12 +108,18 @@ export const ChatProvider: React.FC<React.PropsWithChildren> = ({
   const { start, stop } = useSSEStream({
     url: STREAM_URL,
     eventHandlers,
+    onTimeout: () => {
+      console.log("SSE timeout");
+      dispatch({ type: "SET_STATUS", payload: "idle" });
+    },
   });
 
   const handleStartStream = useCallback(() => {
+    dispatch({ type: "RESET_CHAT" });
+
     console.log("Starting SSE stream");
-    start();
     dispatch({ type: "SET_STATUS", payload: "loading" });
+    start();
   }, [start]);
 
   const handleStopStream = useCallback(() => {

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "@/src/ui/molecules/Button/Button";
-import { colors, spacing, layout } from "@/src/theme";
+import { colors, spacing, layout, useResponsiveLayout } from "@/src/theme";
 import MessageBubble from "../components/MessageBubble";
 import { ChatMessage } from "../types";
 import { useChatContext } from "../hooks/useChatContext";
@@ -74,14 +74,40 @@ export const ChatScreen: React.FC = () => {
 const EmptyState = ({ isLoading }: { isLoading: boolean }) => {
   return (
     <View style={styles.emptyState}>
-      {isLoading ? (
-        <ActivityIndicator size="large" color={colors.primary} />
-      ) : (
-        <Text variant="titleLarge" colorToken="text" testID="empty-state-text">
-          {`Do you want to start a new chat? \nTap the button below to start a new chat. 😊
-          `}
-        </Text>
-      )}
+      <View style={styles.emptyStateContent}>
+        {isLoading ? (
+          <>
+            <ActivityIndicator size="large" color={colors.primary} />
+            <Text
+              variant="bodyLarge"
+              colorToken="textSecondary"
+              style={styles.emptyStateText}
+              testID="loading-text"
+            >
+              Starting conversation...
+            </Text>
+          </>
+        ) : (
+          <>
+            <Text
+              variant="displayMedium"
+              colorToken="text"
+              testID="empty-state-title"
+            >
+              Welcome! 👋
+            </Text>
+            <Text
+              variant="bodyLarge"
+              colorToken="textSecondary"
+              style={styles.emptyStateText}
+              testID="empty-state-subtitle"
+            >
+              Ready to start a new chat? Tap the button below to begin your
+              conversation.
+            </Text>
+          </>
+        )}
+      </View>
     </View>
   );
 };
@@ -117,8 +143,16 @@ const styles = StyleSheet.create({
     borderRadius: layout.radius.lg,
   },
   emptyState: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    paddingVertical: spacing.xl,
+  },
+  emptyStateContent: {
+    alignItems: "center",
+    gap: spacing.lg,
+    maxWidth: 300,
+  },
+  emptyStateText: {
+    textAlign: "center",
   },
 });

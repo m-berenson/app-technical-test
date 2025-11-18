@@ -43,7 +43,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, testID }) => {
           {displayText}
         </Text>
       )}
-      {message.component && (
+      {message.component && message.component.isCompleted && (
         <View style={[styles.componentContainer, { minWidth }]}>
           <Component component={message.component} testID={testID} />
         </View>

@@ -46,7 +46,10 @@ export const ContactCard: React.FC<ContactCardProps> = ({
     <Card onPress={onPress} testID={testID}>
       <Animated.View style={styles.container} layout={LinearTransition}>
         <View style={styles.header}>
-          <Animated.View entering={FadeInRight} style={styles.avatarContainer}>
+          <Animated.View
+            entering={FadeInRight.delay(200)}
+            style={styles.avatarContainer}
+          >
             {(!!profilePicture || !!name) && (
               <Avatar
                 name={name}
@@ -58,7 +61,7 @@ export const ContactCard: React.FC<ContactCardProps> = ({
           </Animated.View>
           <View style={styles.identityContainer}>
             {!!name && (
-              <Animated.View entering={FadeInLeft}>
+              <Animated.View entering={FadeInLeft.delay(400)}>
                 <Text
                   variant="titleLarge"
                   colorToken="text"
@@ -70,7 +73,7 @@ export const ContactCard: React.FC<ContactCardProps> = ({
             )}
             {!!company && (
               <Animated.View
-                entering={FadeInUp}
+                entering={FadeInUp.delay(600)}
                 style={styles.companyBadgeWrapper}
               >
                 <Badge
@@ -86,10 +89,10 @@ export const ContactCard: React.FC<ContactCardProps> = ({
         {detailFields.length > 0 && <View style={styles.divider} />}
 
         <Animated.View style={styles.detailsContainer}>
-          {detailFields.map((field) => (
+          {detailFields.map((field, index) => (
             <Animated.View
               key={field.key}
-              entering={FadeInUp}
+              entering={FadeInUp.delay(800 + index * 200)}
               style={styles.detailRow}
             >
               <Text

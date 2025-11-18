@@ -12,6 +12,7 @@ type SSEErrorEvent = ErrorEvent | TimeoutEvent | ExceptionEvent;
 interface UseSSEStreamProps {
   url: string;
   options?: EventSourceOptions;
+  onTimeout?: () => void;
   eventHandlers?: {
     onOpen?: () => void;
     onMessage?: (event: MessageEvent) => void;
@@ -24,6 +25,7 @@ interface UseSSEStreamProps {
 export const useSSEStream = ({
   url,
   options,
+  onTimeout,
   eventHandlers = {},
 }: UseSSEStreamProps) => {
   const eventSourceRef = useRef<EventSource<string> | null>(null);
@@ -61,10 +63,11 @@ export const useSSEStream = ({
         console.log(
           "SSE timeout: No events received for 5 seconds, closing connection"
         );
+        onTimeout?.();
         stop();
       }
     }, 5000);
-  }, [stop]);
+  }, [stop, onTimeout]);
 
   useEffect(() => {
     eventHandlersRef.current = eventHandlers;

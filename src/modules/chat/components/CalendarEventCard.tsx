@@ -53,7 +53,10 @@ const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
       <Animated.View style={styles.container} layout={LinearTransition}>
         <View style={styles.header}>
           {!!title && (
-            <Animated.View entering={FadeInRight} style={styles.headerText}>
+            <Animated.View
+              entering={FadeInRight.delay(200)}
+              style={styles.headerText}
+            >
               <Text
                 variant="titleLarge"
                 colorToken="text"
@@ -64,7 +67,7 @@ const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
             </Animated.View>
           )}
           {!!status && (
-            <Animated.View entering={FadeInRight}>
+            <Animated.View entering={FadeInRight.delay(400)}>
               <Badge
                 label={statusLabel}
                 variant={statusVariant}
@@ -77,10 +80,10 @@ const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
         {detailFields.length > 0 && <View style={styles.divider} />}
 
         <View style={styles.detailsContainer}>
-          {detailFields.map((field) => (
+          {detailFields.map((field, index) => (
             <Animated.View
               key={field.key}
-              entering={FadeInUp}
+              entering={FadeInUp.delay(600 + index * 200)}
               style={styles.detailRow}
             >
               <Text
